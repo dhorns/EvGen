@@ -1,0 +1,28 @@
+#
+# Input for EvGenBasic
+#
+# These are pretty self-explanatory...
+#
+Particle: g
+#Particle: p
+#
+TargetLength: 0.1
+#TargetLength: 2.0
+#TargetLength: 5.0
+#TargetLength: 10.0
+#
+BeamSpotRadius: 0.50
+#
+Throws: 100000
+#
+# ENERGY
+#     Bite Lo Step Bins
+ParticleEnergy: 10 200 15 1
+#
+# POLAR ANGLE
+#     Value Bite
+LabTheta: 90 90
+#
+# AZIMUTHAL ANGLE
+#     Value Bite
+LabPhi: 0 360

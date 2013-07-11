@@ -1,0 +1,26 @@
+#
+# Input for EvGenRes
+#
+# These are pretty self-explanatory...
+#
+#Particle: g
+Particle: pi0
+#
+TargetLength: 2.0
+#TargetLength: 5.0
+#TargetLength: 10.0
+#
+BeamSpotRadius: 0.50
+#
+#Throws: 100000
+Throws: 10000
+#
+PhotonBeamEnergy: 150 210 15
+#PhotonBeamEnergy: 150 150 15
+#
+ScatteredLabTheta: 90 90 20
+#
+#ScatteredLabPhi: 0
+#ScatteredLabPhi: 45
+#ScatteredLabPhi: 90
+ScatteredLabPhi: 135
