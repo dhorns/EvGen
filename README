@@ -2,4 +2,7 @@ Event Generator for nuclear physics experiments.
 
 Experimenting with GitHub.
 
+Note that in order to compile the three programs, you need to first set the
+link to physics.h in the includes directory.
+
 DLH 2013.07.11
