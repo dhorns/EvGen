@@ -1,8 +1,12 @@
 Event Generator for nuclear physics experiments.
 
-Experimenting with GitHub.
+Note that Andreas has cmake-ified everything.  Now you just use the standard cmake commands to compile it:
 
-Note that in order to compile the three programs, you need to first set the
-link to physics.h in the includes directory.
+	mkdir build
+	cd build
+	cmake ..
+	make
 
-DLH 2013.07.11
+and you should be good to go.
+
+DLH 2015.05.15
