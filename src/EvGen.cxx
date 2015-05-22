@@ -303,7 +303,7 @@ int EvGen()
 			// position so that they are inside the target.
 			while ( sqrt( Sqr( vtx_x = gRandom->Gaus( 0, param.sig_bm)) + Sqr(
 							vtx_y = gRandom->Gaus( 0, param.sig_bm))) >
-					param.vtx_rad); vtx.SetXYZ( vtx_x, vtx_y, vtx_z);
+					param.vtx_rad) vtx.SetXYZ( vtx_x, vtx_y, vtx_z);
 
 			// Target is at rest
 			p.SetPxPyPzE( 0, 0, 0, pm);

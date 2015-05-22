@@ -22,8 +22,8 @@ typedef struct {
 	UInt_t e_bins;
 	TString process;
 	TString tgt;
-	UInt_t chan_lo;
-	UInt_t chan_hi;
+	Int_t chan_lo;
+	Int_t chan_hi;
 	TString te_file;
 
 } Params;
@@ -234,7 +234,7 @@ Bool_t ReadParams()
 		std::cout << name << std::endl;
 	}
 	else if ( cflag == kTRUE) {
-		if ( ( param.chan_lo < 0) || ( param.chan_hi > 352)) {
+		if ( ( param.chan_lo < 0) || ( param.chan_hi > 352) || ( param.chan_lo > param.chan_hi)) {
 			std::cout << "Invalid Tagger Channel Range.";
 			std::cout << "Must be 0-351";
 			std::cout << std::endl;
