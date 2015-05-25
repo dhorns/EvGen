@@ -127,6 +127,10 @@ int EvGen()
 		ptag[0] = 67;
 		pm = kM_C12_MEV/1000;
 	}
+	else if (param.tgt == "he3") {
+		ptag[0] = 49;
+		pm = kM_HE3_MEV/1000;
+	}
 
 	// Default scattered particle is one photon
 	npart = 2;
