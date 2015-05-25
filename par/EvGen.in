@@ -23,15 +23,16 @@ PhotAsym: 0.5
 #PhiOffset: 90
 PhiOffset: 0
 #
-#Throws: 10000
-Throws: 100000
+Throws: 10000
+#Throws: 100000
 #Throws: 1000000
 # 
 # ENERGY
 #     Bite Lo Step Bins
 #Energy: 1 150 15 5
+Energy: 1 150 1 1
 #Energy: 2 200 10 11
-Energy: 2 250 10 1
+#Energy: 2 250 10 1
 #
 # TAGGER CHANNELS
 #TagEngFile: tageng855.dat
