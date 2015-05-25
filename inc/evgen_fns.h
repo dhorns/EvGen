@@ -316,7 +316,7 @@ Double_t ScatCTH( Double_t *x, Double_t *par)
 		}
 		scat_cth = aa + bb*cth + cc*Sqr( cth);
 	}
-	else 
+	else if ( ( param.tgt == "c") || ( param.tgt == "w") || ( param.tgt == "o"))
 	{
 		sth = sqrt( 1 - Sqr( cth));
 		th = acos( cth);
