@@ -1,16 +1,17 @@
 #
 # Input for EvGenComp and EvGenPi0
 #
-#Process: compton
-Process: pi0
+Process: compton
+#Process: pi0
 #
-Target: p
+#Target: p
 #Target: c
 #Target: w
+Target: he3
 #
-#TargetLength: 10.0
+TargetLength: 10.0
 #TargetLength: 5.0
-TargetLength: 2.0
+#TargetLength: 2.0
 #TargetLength: 0.1
 #
 BeamSpotRadius: 0.5
@@ -30,9 +31,9 @@ Throws: 10000
 # ENERGY
 #     Bite Lo Step Bins
 #Energy: 1 150 15 5
-Energy: 1 150 1 1
 #Energy: 2 200 10 11
 #Energy: 2 250 10 1
+Energy: 2 100 10 1
 #
 # TAGGER CHANNELS
 #TagEngFile: tageng855.dat

@@ -201,7 +201,7 @@ Bool_t ReadParams()
 		exit( -1);
 	}
 
-	if ( ( param.tgt != "p") && ( param.tgt != "c") && ( param.tgt != "w")) {
+	if ( ( param.tgt != "p") && ( param.tgt != "c") && ( param.tgt != "w") && (param.tgt != "he3")) {
 		std::cout << "Invalid Target String.\n";
 		exit( -1);
 	}
