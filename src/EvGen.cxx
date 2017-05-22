@@ -232,7 +232,9 @@ int EvGen()
 		TH1F *h15 = new TH1F( "h15", "Decay Particle 2 #phi (deg)", 360, -180,
 				180);
 
-		TH1F  *h16 = new TH1F(  "h16", "Scattered CM cos(#theta)", 20, -1, 1);
+		TH1F *h16 = new TH1F( "h16", "Scattered CM cos(#theta)", 20, -1, 1);
+		
+		TH2F *h17 = new TH2F( "h17", "Recoil KE vs Theta", 180, 0, 180, 300, 0, 300);
 
 		// Bremsstrahlung distribution for beam energy (in GeV)
 		TF1 *f1 = new TF1( "f1", "1/x", e_low, e_high);
@@ -460,6 +462,7 @@ int EvGen()
 			h7->Fill( 1000*(p1.E() - p1.M()));
 			h8->Fill( p1.Theta()/kD2R);
 			h9->Fill( p1.Phi()/kD2R);
+			h17->Fill( p1.Theta()/kD2R, 1000*(p1.E()-p1.M()));
 
 			if ( param.process == "pi0") {
 
