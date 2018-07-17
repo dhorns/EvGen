@@ -38,7 +38,7 @@
 	#include "TRandom.h"
 	#include "TVector3.h"
 	#include "TLorentzVector.h"
-	#include <fstream>
+	#include "Riostream.h"
 
 	int EvGen();
 	void ABCin( TString);

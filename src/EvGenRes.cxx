@@ -22,7 +22,7 @@
 	#include "TRandom.h"
 	#include "TVector3.h"
 	#include "TLorentzVector.h"
-	#include <fstream>
+	#include "Riostream.h"
 
 	int EvGenRes();
 	Double_t Sqr( Double_t);
@@ -90,7 +90,7 @@ int EvGenRes()
 
 	// Read in parameters from parameter file
 	name ="par/EvGenRes.in";
-	ifstream inFile( name);
+	std::ifstream inFile( name);
 	if ( !inFile.is_open()) 
 	{
 		std::cout << "Error opening file ";

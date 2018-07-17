@@ -1,49 +1,32 @@
-/*
- * EvGenBasic
- *
- * This routine is the event generator for GEANT4.  It outputs a root file
- * with an ntuple with the appropriate variable and names.
- *
- * 27.03.2010		DLH		First Version adapted from EvGenRes
- *
- */
+//
+// EvGenBasic.C
+//
+// DLH
 
-// This ifndef section allows you to use this code from the CINT command
-// line or as stand-alone executable code.
-#ifndef __CINT__
+#include "TF1.h"
+#include "TMath.h"
+#include "TH1F.h"
+#include "TH2F.h"
+#include "TNtuple.h"
+#include "TFile.h"
+#include "TString.h"
+#include "TRandom.h"
+#include "TVector3.h"
+#include "TLorentzVector.h"
+#include "Riostream.h"
 
-	#include "TF1.h"
-	#include "TMath.h"
-	#include "TH1F.h"
-	#include "TH2F.h"
-	#include "TNtuple.h"
-	#include "TFile.h"
-	#include "TString.h"
-	#include "TRandom.h"
-	#include "TVector3.h"
-	#include "TLorentzVector.h"
-	#include <fstream>
-
-	Double_t Sqr( Double_t);
-	Double_t Momentum( Double_t, Double_t);
-	int EvGenBasic();
-	TString GenNames( UInt_t, UInt_t*);
-
-	int main()
-	{
-	  return EvGenBasic();
-	}
-
-#endif
-
-// Some physical constants and functions.
 #include "physics.h"
 
-//
-// EvGenBasic
-//
-// The main event generator code.
-//
+Double_t Sqr( Double_t);
+Double_t Momentum( Double_t, Double_t);
+int EvGenBasic();
+TString GenNames( UInt_t, UInt_t*);
+
+int main()
+{
+  return EvGenBasic();
+}
+
 int EvGenBasic() 
 {
 	Int_t i, counts, update;
@@ -86,7 +69,7 @@ int EvGenBasic()
 
 	// Read in parameters from parameter file
 	name ="par/EvGenBasic.in";
-	ifstream inFile( name);
+	std::ifstream inFile( name);
 	if ( !inFile.is_open()) 
 	{
 		std::cout << "Error opening file ";

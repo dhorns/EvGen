@@ -41,7 +41,7 @@ void ABCin( TString process)
 
 	if ( process == "compton") infile = "par/abc_compton.dat";
 	else if ( process == "pi0") infile = "par/abc_pi0.dat";
-	ifstream inFile( infile);
+	std::ifstream inFile( infile);
 	if ( !inFile.is_open()) 
 	{
 		std::cout << "Error opening file ";
@@ -89,7 +89,7 @@ Bool_t ReadParams()
 	param.chan_hi = 351;
 
 	name ="par/EvGen.in";
-	ifstream inFile( name);
+	std::ifstream inFile( name);
 	if ( !inFile.is_open()) 
 	{
 		std::cout << "Error opening file ";
@@ -246,7 +246,7 @@ Bool_t ReadParams()
 		std::cout << name << std::endl;
 
 		// Read in tagger energies from specified file
-		ifstream teFile( param.te_file);
+		std::ifstream teFile( param.te_file);
 		if ( !teFile.is_open()) {
 			std::cout << "Error in tagger energy file ";
 			std::cout << param.te_file;
