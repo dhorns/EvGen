@@ -201,7 +201,8 @@ Bool_t ReadParams()
 		exit( -1);
 	}
 
-	if ( ( param.tgt != "p") && ( param.tgt != "c") && ( param.tgt != "w") && (param.tgt != "he3")) {
+	if ( ( param.tgt != "p") && ( param.tgt != "c") && ( param.tgt != "w")
+			&& (param.tgt != "he3") && (param.tgt != "he4")) {
 		std::cout << "Invalid Target String.\n";
 		exit( -1);
 	}
@@ -276,6 +277,7 @@ Double_t ScatCTH( Double_t *x, Double_t *par)
 	Double_t q, ff;
 	Double_t cth, ke;
 	Double_t ap, alpha, mtgt;
+	Double_t A, x0, s;
 
 	ap = 0;
 	alpha = 0;

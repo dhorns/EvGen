@@ -5,7 +5,7 @@
  * with an ntuple with the appropriate variable and names.
  *
  * 29.05.2008		DLH		First Version adapted from original EvGenComp.
- * 17.07.2008		ATL		Actually making it work unlike the slacker DLH	.
+ * 17.07.2008		ATL		Actually making it work unlike the slacker DLH.
  * 26.11.2008		DLH		Fixed all of the stuff ATL and SJM f**ked up.
  * 31.03.2009		DLH		Updated for Compton analysis.
  * 16.04.2009		DLH		Fixed target xy distribution.
@@ -131,6 +131,10 @@ int EvGen()
 		ptag[0] = 49;
 		pm = kM_HE3_MEV/1000;
 	}
+	else if (param.tgt == "he4") {
+		ptag[0] = 47;
+		pm = kM_HE4_MEV/1000;
+	}
 
 	// Default scattered particle is one photon
 	npart = 2;
@@ -239,10 +243,20 @@ int EvGen()
 		// Bremsstrahlung distribution for beam energy (in GeV)
 		TF1 *f1 = new TF1( "f1", "1/x", e_low, e_high);
 
-		// Angular distributions for proton, 12-C (and 16-O!)
-		TF1 *f2 = new TF1( "ScatCTH", ScatCTH, -1, 1, 1);
-		// It depends on incident photon energy (in MeV!)
-		f2->SetParameter( 0, e_mid);
+		TF1 *f2;
+		if ( param.tgt != "he4")
+		{
+			// Angular distributions for proton, 12-C, 16-O
+			f2 = new TF1( "ScatCTH", ScatCTH, -1, 1, 1);
+			// It depends on incident photon energy (in MeV!)
+			f2->SetParameter( 0, e_mid);
+		}
+		else
+		{
+			// Angular distributions for 4He pi0 at 320 MeV ONLY!!!!
+			f2 = new TF1( "theta4He", "gaus", 0, 180);
+			f2->SetParameters( 53.9, 48.6, 22.5);
+		}
 
 		// Phi distributions using beam pol and asymmetry
 		TF1 *f3 = new TF1( "PhiDist", PhiDist, -kPI, kPI, 3);
@@ -343,8 +357,10 @@ int EvGen()
 
 			// Pick CM angular distributions for scattered particle:
 			// 	Theta is from ABC fit function
+			if ( param.tgt != "he4") qth_cm = acos( f2->GetRandom());
+			else qth_cm = f2->GetRandom()*kD2R;
+
 			// 	Phi is from a function with p_gamma and Sigma
-			qth_cm = acos( f2->GetRandom());
 			qph_cm = f3->GetRandom();
 
 			// Momentum components
