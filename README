@@ -16,3 +16,5 @@ and you should be good to go.
 2018.07.24	DLH	Added pi0 production from 4He at 320 MeV.
 
 2020.08.07	DLH	Fixed some default settings in EvGen.in.
+
+2020.11.06	DLH	Added 4He properly at multiple energies.
