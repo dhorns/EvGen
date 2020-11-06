@@ -278,6 +278,7 @@ Double_t ScatCTH( Double_t *x, Double_t *par)
 	Double_t cth, ke;
 	Double_t ap, alpha, mtgt;
 	Double_t A, x0, s;
+	Double_t a, b;
 
 	ap = 0;
 	alpha = 0;
@@ -337,6 +338,19 @@ Double_t ScatCTH( Double_t *x, Double_t *par)
 		}
 		q = RecoilP( ke, mtgt, th, mpi);
 		ff = (1-alpha/2/(2+3*alpha)*Sqr( q*ap))*exp( -0.25*Sqr( q*ap));
+
+		scat_cth = Sqr( sth*ff);
+	}
+	else if ( param.tgt == "he4")
+	{
+		sth = sqrt( 1 - Sqr( cth));
+		th = acos( cth);
+		mpi = kMPI0_MEV;
+		a = 0.316;
+		b = 0.681;
+		mtgt = kM_HE4_MEV;
+		q = RecoilP( ke, mtgt, th, mpi);
+		ff = (1 - pow( Sqr( a*q), 6))*exp( -Sqr( b*q));
 
 		scat_cth = Sqr( sth*ff);
 	}

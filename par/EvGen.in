@@ -19,22 +19,24 @@ BeamSpotRadius: 0.5
 BeamSpotSigma: 0.5
 #
 #
-BeamPol: 0.3
-PhotAsym: 0.5
+#BeamPol: 0.8
+BeamPol: 0
+PhotAsym: 1.0
 #PhiOffset: 90
 PhiOffset: 0
 #
 #Throws: 100
-#Throws: 10000
+Throws: 10000
 #Throws: 100000
-Throws: 1000000
+#Throws: 1000000
 # 
 # ENERGY
 #     Bite Lo Step Bins
-#Energy: 1 150 15 5
-#Energy: 2 200 10 11
+#Energy: 2 150 15 1
+#Energy: 2 200 10 1
+Energy: 2 300 10 1
 #Energy: 2 250 10 1
-Energy: 2 320 10 1
+#Energy: 2 320 10 1
 #
 # TAGGER CHANNELS
 #TagEngFile: tageng855.dat
