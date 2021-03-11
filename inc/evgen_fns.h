@@ -294,14 +294,14 @@ Double_t ScatCTH( Double_t *x, Double_t *par)
 		aa = 1;
 		bb = 0;
 		cc = 0;
-		if ( ke <= abc[0].k) {
+		if ( ke >= abc[0].k) {
 			aa = abc[0].a;
 			bb = abc[0].b;
 			cc = abc[0].c;
 		}
-		for ( i = 0; i < abcmax; i++) 
+		for ( i = abcmax; i > 0; i--) 
 		{
-			if ( ( ke <= abc[i+1].k) && ( ke >= abc[i].k)) 
+			if ( ( ke >= abc[i+1].k) && ( ke <= abc[i].k)) 
 			{
 				aa = abc[i].a + (abc[i+1].a-abc[i].a)/(abc[i+1].k-abc[i].k)
 					*(ke - abc[i].k);
@@ -312,11 +312,12 @@ Double_t ScatCTH( Double_t *x, Double_t *par)
 				break;
 			}
 		}
-		if ( ke > abc[abcmax].k) {
+		if ( ke < abc[abcmax].k) {
 			aa = abc[abcmax].a;
 			bb = abc[abcmax].b;
 			cc = abc[abcmax].c;
 		}
+		std::cout << aa << " " << bb << " " << cc << std::endl;
 		scat_cth = aa + bb*cth + cc*Sqr( cth);
 	}
 	else if ( ( param.tgt == "c") || ( param.tgt == "w") || ( param.tgt == "o"))

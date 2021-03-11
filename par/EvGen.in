@@ -4,10 +4,10 @@
 #Process: compton
 Process: pi0
 #
-#Target: p
+Target: p
 #Target: c
 #Target: w
-Target: he4
+#Target: he4
 #
 #TargetLength: 10.0
 TargetLength: 5.0
@@ -26,14 +26,14 @@ PhotAsym: 1.0
 PhiOffset: 0
 #
 #Throws: 100
-Throws: 10000
-#Throws: 100000
+#Throws: 10000
+Throws: 100000
 #Throws: 1000000
 # 
 # ENERGY
 #     Bite Lo Step Bins
 #Energy: 1 150 15 5
-Energy: 2 200 10 1
+Energy: 2 320 10 1
 #Energy: 2 300 10 1
 #Energy: 2 500 10 1
 #Energy: 2 250 10 1
