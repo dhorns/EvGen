@@ -317,7 +317,7 @@ Double_t ScatCTH( Double_t *x, Double_t *par)
 			bb = abc[abcmax].b;
 			cc = abc[abcmax].c;
 		}
-		std::cout << aa << " " << bb << " " << cc << std::endl;
+//		std::cout << aa << " " << bb << " " << cc << std::endl;
 		scat_cth = aa + bb*cth + cc*Sqr( cth);
 	}
 	else if ( ( param.tgt == "c") || ( param.tgt == "w") || ( param.tgt == "o"))
