@@ -16,3 +16,8 @@ endif()
 # figure out compile flags
 string(TOUPPER ${CMAKE_BUILD_TYPE} BUILD_TYPE)
 set(DEFAULT_COMPILE_FLAGS ${CMAKE_CXX_FLAGS_${BUILD_TYPE}})
+
+# set the Mac flags
+# need an if statement for linux/Mac
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O -std=c++11")
+set(CMAKE_LD_FLAGS "${CMAKE_LD_FLAGS} -O -std=c++11")
