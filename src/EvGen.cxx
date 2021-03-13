@@ -22,6 +22,8 @@
  * 31.12.2011		DLH		Adding beam asymmetry for polarized running.
  * 15.02.2012		DLH		Removed dilepton, added beam asymmetry for phi distribution.
  * 06.11.2020		DLH		Added helium-4 properly.
+ * 11.03.2021		DLH		Fixed ABC issue for pi0 producition from the proton.
+ * 13.03.2021		DLH		Added helium-3.
  *
  */
 
@@ -245,7 +247,7 @@ int EvGen()
 		TF1 *f1 = new TF1( "f1", "1/x", e_low, e_high);
 
 		TF1 *f2;
-		// Angular distributions for proton, 4-He, 12-C, 16-O
+		// Angular distributions for proton, 3/4-He, 12-C, 16-O
 		f2 = new TF1( "ScatCTH", ScatCTH, -1, 1, 1);
 		// It depends on incident photon energy (in MeV!)
 		f2->SetParameter( 0, e_mid);

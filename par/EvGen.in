@@ -4,9 +4,10 @@
 #Process: compton
 Process: pi0
 #
-Target: p
+#Target: p
 #Target: c
 #Target: w
+Target: he3
 #Target: he4
 #
 #TargetLength: 10.0

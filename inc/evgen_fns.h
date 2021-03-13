@@ -317,7 +317,6 @@ Double_t ScatCTH( Double_t *x, Double_t *par)
 			bb = abc[abcmax].b;
 			cc = abc[abcmax].c;
 		}
-//		std::cout << aa << " " << bb << " " << cc << std::endl;
 		scat_cth = aa + bb*cth + cc*Sqr( cth);
 	}
 	else if ( ( param.tgt == "c") || ( param.tgt == "w") || ( param.tgt == "o"))
@@ -339,6 +338,19 @@ Double_t ScatCTH( Double_t *x, Double_t *par)
 		}
 		q = RecoilP( ke, mtgt, th, mpi);
 		ff = (1-alpha/2/(2+3*alpha)*Sqr( q*ap))*exp( -0.25*Sqr( q*ap));
+
+		scat_cth = Sqr( sth*ff);
+	}
+	else if ( param.tgt == "he3")
+	{
+		sth = sqrt( 1 - Sqr( cth));
+		th = acos( cth);
+		mpi = kMPI0_MEV;
+		a = 0.316;
+		b = 0.681;
+		mtgt = kM_HE3_MEV;
+		q = RecoilP( ke, mtgt, th, mpi);
+		ff = (1 - pow( Sqr( a*q), 6))*exp( -Sqr( b*q));
 
 		scat_cth = Sqr( sth*ff);
 	}
