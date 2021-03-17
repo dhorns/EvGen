@@ -289,6 +289,10 @@ Double_t ScatCTH( Double_t *x, Double_t *par)
 
 	scat_cth = 1;			// Default is phase space
 
+	// For the RecoilP function
+	if ( param.process == "compton") mpi = 0;
+	else mpi = kMPI0_MEV;
+
 	if ( param.tgt == "p") 
 	{
 		aa = 1;
@@ -323,7 +327,6 @@ Double_t ScatCTH( Double_t *x, Double_t *par)
 	{
 		sth = sqrt( 1 - Sqr( cth));
 		th = acos( cth);
-		mpi = kMPI0_MEV;
 		if ( ( param.tgt == "c") || ( param.tgt == "w"))
 		{
 			ap = 1.66;
@@ -345,7 +348,6 @@ Double_t ScatCTH( Double_t *x, Double_t *par)
 	{
 		sth = sqrt( 1 - Sqr( cth));
 		th = acos( cth);
-		mpi = kMPI0_MEV;
 		a = 0.316;
 		b = 0.681;
 		mtgt = kM_HE3_MEV;
@@ -358,7 +360,6 @@ Double_t ScatCTH( Double_t *x, Double_t *par)
 	{
 		sth = sqrt( 1 - Sqr( cth));
 		th = acos( cth);
-		mpi = kMPI0_MEV;
 		a = 0.316;
 		b = 0.681;
 		mtgt = kM_HE4_MEV;
