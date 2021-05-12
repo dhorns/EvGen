@@ -1,4 +1,4 @@
-cmake_minimum_required (VERSION 2.6)
+cmake_minimum_required (VERSION 2.6...3.19)
 project(EvGen)
 
 # check for in-source build, forbid it!
