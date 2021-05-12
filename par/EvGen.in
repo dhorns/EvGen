@@ -37,16 +37,18 @@ Throws: 100000
 #Energy: 1 150 15 5
 #Energy: 2 100 10 1
 #Energy: 2 300 10 1
+Energy: 2 320 10 1
 #Energy: 2 500 10 1
 #Energy: 2 250 10 1
 #Energy: 2 320 10 1
 #
 # TAGGER CHANNELS
 #TagEngFile: tageng855.dat
-TagEngFile: tageng883.dat
+#TagEngFile: tageng883.dat
 #
 #Channels: 5 8
-Channels: 0 327
+#Channels: 61 99
+#Channels: 0 327
 #Channels: 290 290
 #Channels: 305 305
 #Channels: 300 309
