@@ -386,7 +386,7 @@ Double_t PhiDist( Double_t *x, Double_t *par)
 	sig = par[1];
 	phi0 = par[2];
 
-	xs = 1 + p_g*sig*cos( 2*ph + phi0);
+	xs = 1 + p_g*sig*cos( 2*(ph + phi0));
 
 	return( xs);
 }
