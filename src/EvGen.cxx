@@ -222,26 +222,26 @@ int EvGen()
 		// angle.
 		TH1F  *h2 = new TH1F(  "h2", "Photon Beam Energy (MeV)", 4500, 0, 450);
 		TH1F  *h3 = new TH1F(  "h3", "Scattered KE (MeV)", 300, 0, 300);
-		TH1F  *h4 = new TH1F(  "h4", "Scattered #theta (deg)", 180, 0, 180);
-		TH1F  *h5 = new TH1F(  "h5", "Scattered CM #theta", 180, 0, 180);
-		TH1F  *h6 = new TH1F(  "h6", "Scattered #phi (deg)", 360, -180, 180);
+		TH1F  *h4 = new TH1F(  "h4", "Scattered #theta (deg)", 36, 0, 180);
+		TH1F  *h5 = new TH1F(  "h5", "Scattered CM #theta", 36, 0, 180);
+		TH1F  *h6 = new TH1F(  "h6", "Scattered #phi (deg)", 72, -180, 180);
 		TH1F  *h7 = new TH1F(  "h7", "Recoil KE (MeV)", 300, 0, 300);
-		TH1F  *h8 = new TH1F(  "h8", "Recoil #theta (deg)", 180, 0, 180);
-		TH1F  *h9 = new TH1F(  "h9", "Recoil #phi (deg)", 360, -180, 180);
+		TH1F  *h8 = new TH1F(  "h8", "Recoil #theta (deg)", 36, 0, 180);
+		TH1F  *h9 = new TH1F(  "h9", "Recoil #phi (deg)", 72, -180, 180);
 
 		// These are only for pi0 production but must be defined regardless...
 		TH1F *h10 = new TH1F( "h10", "Decay Particle 1 KE (MeV)", 300, 0, 300);
-		TH1F *h11 = new TH1F( "h11", "Decay Particle 1 #theta (deg)", 180, 0, 180);
-		TH1F *h12 = new TH1F( "h12", "Decay Particle 1 #phi (deg)", 360, -180,
+		TH1F *h11 = new TH1F( "h11", "Decay Particle 1 #theta (deg)", 36, 0, 180);
+		TH1F *h12 = new TH1F( "h12", "Decay Particle 1 #phi (deg)", 72, -180,
 				180);
 		TH1F *h13 = new TH1F( "h13", "Decay Particle 2 KE (MeV)", 300, 0, 300);
-		TH1F *h14 = new TH1F( "h14", "Decay Particle 2 #theta (deg)", 180, 0, 180);
-		TH1F *h15 = new TH1F( "h15", "Decay Particle 2 #phi (deg)", 360, -180,
+		TH1F *h14 = new TH1F( "h14", "Decay Particle 2 #theta (deg)", 36, 0, 180);
+		TH1F *h15 = new TH1F( "h15", "Decay Particle 2 #phi (deg)", 72, -180,
 				180);
 
 		TH1F *h16 = new TH1F( "h16", "Scattered CM cos(#theta)", 20, -1, 1);
 		
-		TH2F *h17 = new TH2F( "h17", "Recoil KE vs Theta", 180, 0, 180, 300, 0, 300);
+		TH2F *h17 = new TH2F( "h17", "Recoil KE vs Theta", 36, 0, 180, 300, 0, 300);
 
 		// Bremsstrahlung distribution for beam energy (in GeV)
 		TF1 *f1 = new TF1( "f1", "1/x", e_low, e_high);
