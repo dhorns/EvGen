@@ -9,7 +9,7 @@ Note that Andreas has cmake-ified everything.  Now you just use the standard cma
 
 and you should be good to go.
 
-2015.05.15 DLH
+2015.05.15	DLH
 
 2018.07.17	DLH	Fixed the code so that it compiles and runs with ROOT6.
 
@@ -18,3 +18,11 @@ and you should be good to go.
 2020.08.07	DLH	Fixed some default settings in EvGen.in.
 
 2020.11.06	DLH	Added 4He properly at multiple energies.
+
+2021.03.11	DLH	Fixed some issues with the ABC theta input tables.
+
+2021.03.17	DLH	Added 3He target.
+
+2021.06.01	DLH	Changed the number of theta and phi bins to match GoAT.
+
+2021.06.18	DLH	Added some other particles to EvGenBasic.
