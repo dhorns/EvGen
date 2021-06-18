@@ -146,7 +146,8 @@ int EvGenBasic()
 	}
 	inFile.close();
 
-	if ( ( particle != "g") && ( particle != "p")) {
+	if ( ( particle != "g") && ( particle != "p") && ( particle != "d")
+			&& ( particle != "he3")	&& ( particle != "he4")) {
 		std::cout << "Particle \"" << particle << "\" not supported";
 		std::cout << std::endl;
 		exit( -1);
@@ -184,6 +185,18 @@ int EvGenBasic()
 	if ( particle == "p") {
 		ptag[0] = 14;
 		pm = kMP_MEV/1000;
+	}
+	else if ( particle == "d") {
+		ptag[0] = 45;
+		pm = kM_DEUT_MEV/1000;
+	}
+	else if ( particle == "he3") {
+		ptag[0] = 49;
+		pm = kM_HE3_MEV/1000;
+	}
+	else if ( particle == "he4") {
+		ptag[0] = 47;
+		pm = kM_HE4_MEV/1000;
 	}
 
 	// Array for filling ntuple

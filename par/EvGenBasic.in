@@ -3,8 +3,11 @@
 #
 # These are pretty self-explanatory...
 #
-Particle: g
+#Particle: g
 #Particle: p
+#Particle: d
+#Particle: he3
+Particle: he4
 #
 TargetLength: 0.1
 #TargetLength: 2.0
@@ -21,7 +24,7 @@ ParticleEnergy: 10 200 15 1
 #
 # POLAR ANGLE
 #     Value Bite
-LabTheta: 90 90
+LabTheta: 90 10
 #
 # AZIMUTHAL ANGLE
 #     Value Bite
