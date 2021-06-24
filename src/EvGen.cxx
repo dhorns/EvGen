@@ -243,6 +243,25 @@ int EvGen()
 		
 		TH2F *h17 = new TH2F( "h17", "Recoil KE vs Theta", 36, 0, 180, 300, 0, 300);
 
+		//
+		// New TTree stuff
+		// 
+		Double_t beamE;
+		Double_t scatKE, scatThCM, scatTh, scatPhi;
+		Double_t recoilKE, recoilThCM, recoilTh, recoilPhi;
+		TTree *egTree = new TTree( "EvGenTree", "EvGen Compton and Pi0 Kinematics");
+		egTree->Branch( "BeamE", &beamE);
+		egTree->Branch( "ScatKE", &scatKE);
+		egTree->Branch( "ScatTheta", &scatTh);
+		egTree->Branch( "ScatThetaCM", &scatThCM);
+		egTree->Branch( "ScatPhi", &scatPhi);
+		egTree->Branch( "RecoilKE", &recoilKE);
+		egTree->Branch( "RecoilTheta", &recoilTh);
+		egTree->Branch( "RecoilThetaCM", &recoilThCM);
+		egTree->Branch( "RecoilPhi", &recoilPhi);
+		//
+		//
+
 		// Bremsstrahlung distribution for beam energy (in GeV)
 		TF1 *f1 = new TF1( "f1", "1/x", e_low, e_high);
 
@@ -483,10 +502,28 @@ int EvGen()
 				h15->Fill( photon2.Phi()/kD2R);
 
 			}
+
+			beamE = ke;
+			scatKE = 1000*(q.E() - q.M());
+			scatTh = q.Theta()/kD2R;
+			scatThCM = q_cm.Theta()/kD2R;
+			scatPhi = q.Phi()/kD2R;
+			recoilKE = 1000*(p1.E() - p1.M());
+			recoilTh = p1.Theta()/kD2R;
+			recoilThCM = 180 - scatThCM;
+			recoilPhi = p1.Phi()/kD2R;
+
+			// Fill Tree
+			egTree->Fill();
 		}
+
+		// Write tree to file
+		hfile.cd();
+		egTree->Write();
 
 		// Write histograms to file
 		hfile.Write();
+		
 
 		// This isn't really necessary, but can be used for debugging.
 //		h1->Print();
