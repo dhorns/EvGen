@@ -24,6 +24,7 @@
  * 06.11.2020		DLH		Added helium-4 properly.
  * 11.03.2021		DLH		Fixed ABC issue for pi0 producition from the proton.
  * 13.03.2021		DLH		Added helium-3.
+ * 24.06.2021		DLH		Adding some Tree output
  *
  */
 
@@ -85,9 +86,6 @@ int EvGen()
 	Double_t qm, qth_cm, qph_cm, mom_cm;
 	Double_t qx_cm, qy_cm, qz_cm, qe_cm;
 	Double_t gammae, gammax, gammay, gammaz, gammath, gammaph;
-//	Double_t eminuse, eminusx, eminusy, eminusz, eminusth, eminusph;
-
-	Double_t md1, md2;
 
 	TVector3 vtx, dircos, q3mom;
 	TVector3 cmBoost, labBoost, pi0Boost;
@@ -150,9 +148,7 @@ int EvGen()
 		ptag[1] = 7;					// pi0
 		qm = kMPI0_MEV/1000;
 		ptag[2] = 1;					// gamma
-		md1 = 0;
 		ptag[3] = 1;					// gamma
-		md2 = 0;
 	}
 
 	// Array for filling ntuple
@@ -503,14 +499,15 @@ int EvGen()
 
 			}
 
-			beamE = ke;
+			// Tree variables
+			beamE = ke*1000;
 			scatKE = 1000*(q.E() - q.M());
 			scatTh = q.Theta()/kD2R;
 			scatThCM = q_cm.Theta()/kD2R;
 			scatPhi = q.Phi()/kD2R;
 			recoilKE = 1000*(p1.E() - p1.M());
 			recoilTh = p1.Theta()/kD2R;
-			recoilThCM = 180 - scatThCM;
+			recoilThCM = 180 - scatThCM/kD2R;
 			recoilPhi = p1.Phi()/kD2R;
 
 			// Fill Tree
