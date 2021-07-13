@@ -20,6 +20,8 @@ find_package(ROOT "5.30" REQUIRED)
 include_directories(${ROOT_INCLUDES})
 link_directories(${ROOT_LIBRARY_DIR})
 
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17")
+
 # create executables
 
 include_directories(inc)
