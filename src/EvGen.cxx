@@ -331,7 +331,7 @@ int EvGen()
 			// The while statement cuts off the gaussian xy values of vertex
 			// position so that they are inside the target.
 			while ( sqrt( Sqr( vtx_x = gRandom->Gaus( 0, param.sig_bm)) + Sqr(
-							vtx_y = gRandom->Gaus( 0, param.sig_bm))) >
+							vtx_y = gRandom->Gaus( 0, param.sig_bm))) <
 					param.vtx_rad) vtx.SetXYZ( vtx_x, vtx_y, vtx_z);
 
 			// Target is at rest
