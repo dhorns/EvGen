@@ -1,8 +1,8 @@
 #
 # Input for EvGenComp and EvGenPi0
 #
-#Process: compton
-Process: pi0
+Process: compton
+#Process: pi0
 #
 Target: p
 #Target: c
