@@ -218,12 +218,12 @@ int EvGen()
 		// angle.
 		TH1F  *h2 = new TH1F(  "h2", "Photon Beam Energy (MeV)", 4500, 0, 450);
 		TH1F  *h3 = new TH1F(  "h3", "Scattered KE (MeV)", 300, 0, 300);
-		TH1F  *h4 = new TH1F(  "h4", "Scattered #theta (deg)", 36, 0, 180);
-		TH1F  *h5 = new TH1F(  "h5", "Scattered CM #theta", 36, 0, 180);
-		TH1F  *h6 = new TH1F(  "h6", "Scattered #phi (deg)", 72, -180, 180);
+		TH1F  *h4 = new TH1F(  "h4", "Scattered #theta (deg)", 360, 0, 180);
+		TH1F  *h5 = new TH1F(  "h5", "Scattered CM #theta", 360, 0, 180);
+		TH1F  *h6 = new TH1F(  "h6", "Scattered #phi (deg)", 720, -180, 180);
 		TH1F  *h7 = new TH1F(  "h7", "Recoil KE (MeV)", 300, 0, 300);
-		TH1F  *h8 = new TH1F(  "h8", "Recoil #theta (deg)", 36, 0, 180);
-		TH1F  *h9 = new TH1F(  "h9", "Recoil #phi (deg)", 72, -180, 180);
+		TH1F  *h8 = new TH1F(  "h8", "Recoil #theta (deg)", 360, 0, 180);
+		TH1F  *h9 = new TH1F(  "h9", "Recoil #phi (deg)", 720, -180, 180);
 
 		// These are only for pi0 production but must be defined regardless...
 		TH1F *h10 = new TH1F( "h10", "Decay Particle 1 KE (MeV)", 300, 0, 300);
