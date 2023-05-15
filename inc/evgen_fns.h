@@ -41,6 +41,7 @@ void ABCin( TString process)
 
 	if ( process == "compton") infile = "par/abc_compton.dat";
 	else if ( process == "pi0") infile = "par/abc_pi0.dat";
+	else if ( process == "eta") infile = "par/abc_eta.dat";
 	std::ifstream inFile( infile);
 	if ( !inFile.is_open()) 
 	{
@@ -196,7 +197,7 @@ Bool_t ReadParams()
 		exit( -1);
 	}
 
-	if ( ( param.process != "compton") && ( param.process != "pi0")) {
+	if ( ( param.process != "compton") && ( param.process != "pi0") && ( param.process != "eta")) {
 		std::cout << "Invalid Process String.\n";
 		exit( -1);
 	}
@@ -291,7 +292,8 @@ Double_t ScatCTH( Double_t *x, Double_t *par)
 
 	// For the RecoilP function
 	if ( param.process == "compton") mpi = 0;
-	else mpi = kMPI0_MEV;
+	else if ( param.process == "pi0") mpi = kMPI0_MEV; // ALTERRED TO INCLUDE ETA
+	else if ( param.process == "eta") mpi = kMETA_MEV;
 
 	if ( param.tgt == "p") 
 	{

@@ -299,6 +299,10 @@ int EvGen()
 		
 			h17 = new TH2F( "h17", "Recoil KE vs Theta", 36, 0, 180, 500, 0, 2500);		
 		}
+		
+		// Defining some new histograms to test that I'm doing the proper math - just for the eta
+		
+		TH1F *h18 = new TH1F( "h18", "Predicted #gamma 2 KE versus Reconstructed #gamma 2 KE (%)", 200, -100, 100);
 
 		
 		//
@@ -538,6 +542,38 @@ int EvGen()
 				photon2.RotateY( q.Theta());
 				photon2.RotateZ( q.Phi());
 			}
+			
+			
+			// Testing to make sure that the derivation I did for photon 2 works okay
+			
+			// things we know: both incoming 4-vectors, energy and angle deposition of scattered proton as well as decay photon 1
+			
+			TLorentzVector t_p1, t_eta, t_pho1, t_pho2;
+			Double_t t_p1_mom, t_p1_E, t_p1_th, t_p1_phi;
+			Double_t t_eta_E, t_eta_mom, t_eta_th, t_eta_phi;
+			Double_t t_pho1_E, t_pho1_th, t_pho1_phi;
+			
+			if ( param.process == "eta") {
+			
+				t_p1_E = p1.E();
+				t_p1_mom = sqrt( t_p1_E*t_p1_E - pm*pm);
+				t_p1_th = p1.Theta();
+				t_p1_phi = p1.Phi();
+				t_p1.SetPxPyPzE(t_p1_mom*sin( t_p1_th)*cos( t_p1_phi), t_p1_mom*sin( t_p1_th)*sin( t_p1_phi), t_p1_mom*cos( t_p1_th), t_p1_E);
+				
+				t_eta = p4In - t_p1;
+				t_eta_E = t_eta.E();
+				t_eta_mom = sqrt( t_eta_E*t_eta_E - qm*qm);
+				t_eta_th = acos( t_eta.Pz() / t_eta_mom);
+				t_eta_phi = acos( t_eta.Px() / (t_eta_mom*sin( t_eta_th)));
+				
+				t_pho1_E = photon1.E();
+				t_pho1_th = photon1.Theta();
+				t_pho1_phi = photon1.Phi();
+				t_pho1.SetPxPyPzE(t_pho1_E*sin( t_pho1_th)*cos( t_pho1_phi), t_pho1_E*sin( t_pho1_th)*sin( t_pho1_phi), t_pho1_E*sin( t_pho1_th)*cos( t_pho1_phi), t_pho1_E);
+				
+				t_pho2 = t_eta - t_pho1;
+			}
 
 			// These next lines store the particle properties in the ntuple
 			// variable.
@@ -638,6 +674,7 @@ int EvGen()
 				h13->Fill( 1000*photon2.E());
 				h14->Fill( photon2.Theta()/kD2R);
 				h15->Fill( photon2.Phi()/kD2R);
+				h18->Fill( ((photon2.E() - t_pho2.E())/photon2.E()) * 100);
 
 			}
 
