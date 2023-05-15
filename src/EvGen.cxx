@@ -25,7 +25,7 @@
  * 11.03.2021		DLH		Fixed ABC issue for pi0 producition from the proton.
  * 13.03.2021		DLH		Added helium-3.
  * 24.06.2021		DLH		Adding some Tree output.
- * 11.05.2023		MFEK		Adding eta production reaction, fixed several minor issues.
+ * 15.05.2023		MFEK		Adding eta production reaction.
  *
  */
 
