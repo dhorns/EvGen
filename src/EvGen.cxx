@@ -24,7 +24,8 @@
  * 06.11.2020		DLH		Added helium-4 properly.
  * 11.03.2021		DLH		Fixed ABC issue for pi0 producition from the proton.
  * 13.03.2021		DLH		Added helium-3.
- * 24.06.2021		DLH		Adding some Tree output
+ * 24.06.2021		DLH		Adding some Tree output.
+ * 15.05.2023		MFEK		Adding eta production reaction.
  *
  */
 
@@ -88,9 +89,9 @@ int EvGen()
 	Double_t gammae, gammax, gammay, gammaz, gammath, gammaph;
 
 	TVector3 vtx, dircos, q3mom;
-	TVector3 cmBoost, labBoost, pi0Boost;
+	TVector3 cmBoost, labBoost, pi0Boost, etaBoost;
 
-	TLorentzVector k, p, p1, q, p4In, p4Out, forpion;
+	TLorentzVector k, p, p1, q, p4In, p4Out, forpion, foreta;
 	TLorentzVector gamma1, gamma2, photon1, photon2;
 	TLorentzVector k_cm, p_cm, p1_cm, q_cm;
 
@@ -116,6 +117,11 @@ int EvGen()
 	// For the case of neutral pion production
 	// 	Particle 1:		Target
 	// 	Particle 2:		Pion (not tracked in G4)
+	// 	Particle 3:		Decay photon 1
+	// 	Particle 4:		Decay photon 2
+	// For the case of eta production
+	// 	Particle 1:		Target
+	// 	Particle 2:		Eta (not tracked in G4)
 	// 	Particle 3:		Decay photon 1
 	// 	Particle 4:		Decay photon 2
 
@@ -151,10 +157,20 @@ int EvGen()
 		ptag[3] = 1;					// gamma
 	}
 
+	// One eta decaying into two photons
+	if ( param.process == "eta") {
+		npart = 4;
+		ptag[1] = 17;					// eta
+		qm = kMETA_MEV/1000;
+		ptag[2] = 1;					// gamma
+		ptag[3] = 1;					// gamma
+	}
+
 	// Array for filling ntuple
 	Float_t var[100];
 
 	//	Minimum photon energy required for reaction (in GeV)
+	//	kthr for eta production is 0.70723 GeV
 	kthr = qm + qm*qm/(2*pm);
 
 	// Set the seed for the random number generator
@@ -199,7 +215,7 @@ int EvGen()
 		name = Form( "Energy = %5.1f +/- %4.1f MeV", e_mid, e_bite);
 		std::cout << name << std::endl;
 
-		if ( e_high < kthr) {
+		if ( e_high < (kthr*1000)) { // converts kthr to MeV
 			std::cout << "Photon Energy below threshold.  Skipping..."
 				<< std::endl;
 			continue;
@@ -216,36 +232,82 @@ int EvGen()
 		// you want.  However, if you are trying to calculate angular
 		// efficiencies, then you will need to keep "h4", the scattered lab
 		// angle.
-		TH1F  *h2 = new TH1F(  "h2", "Photon Beam Energy (MeV)", 4500, 0, 450);
-		TH1F  *h3 = new TH1F(  "h3", "Scattered KE (MeV)", 300, 0, 300);
-		TH1F  *h4 = new TH1F(  "h4", "Scattered #theta (deg)", 360, 0, 180);
-		TH1F  *h5 = new TH1F(  "h5", "Scattered CM #theta", 360, 0, 180);
-		TH1F  *h6 = new TH1F(  "h6", "Scattered #phi (deg)", 720, -180, 180);
-		TH1F  *h7 = new TH1F(  "h7", "Recoil KE (MeV)", 300, 0, 300);
-		TH1F  *h8 = new TH1F(  "h8", "Recoil #theta (deg)", 360, 0, 180);
-		TH1F  *h9 = new TH1F(  "h9", "Recoil #phi (deg)", 720, -180, 180);
-
-		// These are only for pi0 production but must be defined regardless...
-		TH1F *h10 = new TH1F( "h10", "Decay Particle 1 KE (MeV)", 300, 0, 300);
-		TH1F *h11 = new TH1F( "h11", "Decay Particle 1 #theta (deg)", 36, 0, 180);
-		TH1F *h12 = new TH1F( "h12", "Decay Particle 1 #phi (deg)", 72, -180,
-				180);
-		TH1F *h13 = new TH1F( "h13", "Decay Particle 2 KE (MeV)", 300, 0, 300);
-		TH1F *h14 = new TH1F( "h14", "Decay Particle 2 #theta (deg)", 36, 0, 180);
-		TH1F *h15 = new TH1F( "h15", "Decay Particle 2 #phi (deg)", 72, -180,
-				180);
-
-		TH1F *h16 = new TH1F( "h16", "Scattered CM cos(#theta)", 20, -1, 1);
+				
+		TH1F *h2;
+		TH1F *h3;
+		TH1F *h4;
+		TH1F *h5;
+		TH1F *h6;
+		TH1F *h7;
+		TH1F *h8;
+		TH1F *h9;
+		TH1F *h10;
+		TH1F *h11;
+		TH1F *h12;
+		TH1F *h13;
+		TH1F *h14;
+		TH1F *h15;
+		TH1F *h16;
+		TH2F *h17;
 		
-		TH2F *h17 = new TH2F( "h17", "Recoil KE vs Theta", 36, 0, 180, 300, 0, 300);
+		if ( param.process != "eta") {
+			h2 = new TH1F(  "h2", "Photon Beam Energy (MeV)", 450, 0, 450);
+			h3 = new TH1F(  "h3", "Scattered KE (MeV)", 300, 0, 300);
+			h4 = new TH1F(  "h4", "Scattered #theta (deg)", 360, 0, 180);
+			h5 = new TH1F(  "h5", "Scattered CM #theta", 360, 0, 180);
+			h6 = new TH1F(  "h6", "Scattered #phi (deg)", 720, -180, 180);
+			h7 = new TH1F(  "h7", "Recoil KE (MeV)", 300, 0, 300);
+			h8 = new TH1F(  "h8", "Recoil #theta (deg)", 360, 0, 180);
+			h9 = new TH1F(  "h9", "Recoil #phi (deg)", 720, -180, 180);
 
+			// These are only for pi0 production but must be defined regardless... now useful for eta production as well!
+			h10 = new TH1F( "h10", "Decay Particle 1 KE (MeV)", 300, 0, 300);
+			h11 = new TH1F( "h11", "Decay Particle 1 #theta (deg)", 36, 0, 180);
+			h12 = new TH1F( "h12", "Decay Particle 1 #phi (deg)", 72, -180,
+				180);
+			h13 = new TH1F( "h13", "Decay Particle 2 KE (MeV)", 300, 0, 300);
+			h14 = new TH1F( "h14", "Decay Particle 2 #theta (deg)", 36, 0, 180);
+			h15 = new TH1F( "h15", "Decay Particle 2 #phi (deg)", 72, -180,
+				180);
+
+			h16 = new TH1F( "h16", "Scattered CM cos(#theta)", 20, -1, 1);
+		
+			h17 = new TH2F( "h17", "Recoil KE vs Theta", 36, 0, 180, 300, 0, 300);		
+		}
+		
+		if ( param.process == "eta") {
+			h2 = new TH1F(  "h2", "Photon Beam Energy (MeV)", 480, 700, 3100);
+			h3 = new TH1F(  "h3", "Scattered KE (MeV)", 500, 0, 2500);
+			h4 = new TH1F(  "h4", "Scattered #theta (deg)", 360, 0, 180);
+			h5 = new TH1F(  "h5", "Scattered CM #theta", 360, 0, 180);
+			h6 = new TH1F(  "h6", "Scattered #phi (deg)", 720, -180, 180);
+			h7 = new TH1F(  "h7", "Recoil KE (MeV)", 500, 0, 2500);
+			h8 = new TH1F(  "h8", "Recoil #theta (deg)", 360, 0, 180);
+			h9 = new TH1F(  "h9", "Recoil #phi (deg)", 720, -180, 180);
+
+			// These are only for pi0 production but must be defined regardless... now useful for eta production as well!
+			h10 = new TH1F( "h10", "Decay Particle 1 KE (MeV)", 500, 0, 3000);
+			h11 = new TH1F( "h11", "Decay Particle 1 #theta (deg)", 36, 0, 180);
+			h12 = new TH1F( "h12", "Decay Particle 1 #phi (deg)", 72, -180,
+				180);
+			h13 = new TH1F( "h13", "Decay Particle 2 KE (MeV)", 500, 0, 3000);
+			h14 = new TH1F( "h14", "Decay Particle 2 #theta (deg)", 36, 0, 180);
+			h15 = new TH1F( "h15", "Decay Particle 2 #phi (deg)", 72, -180,
+				180);
+
+			h16 = new TH1F( "h16", "Scattered CM cos(#theta)", 20, -1, 1);
+		
+			h17 = new TH2F( "h17", "Recoil KE vs Theta", 36, 0, 180, 500, 0, 2500);		
+		}
+
+		
 		//
 		// New TTree stuff
 		// 
 		Double_t beamE;
 		Double_t scatKE, scatThCM, scatTh, scatPhi;
 		Double_t recoilKE, recoilThCM, recoilTh, recoilPhi;
-		TTree *egTree = new TTree( "EvGenTree", "EvGen Compton and Pi0 Kinematics");
+		TTree *egTree = new TTree( "EvGenTree", "EvGen Compton, Pi0, and Eta Kinematics");
 		egTree->Branch( "BeamE", &beamE);
 		egTree->Branch( "ScatKE", &scatKE);
 		egTree->Branch( "ScatTheta", &scatTh);
@@ -263,9 +325,18 @@ int EvGen()
 
 		TF1 *f2;
 		// Angular distributions for proton, 3/4-He, 12-C, 16-O
-		f2 = new TF1( "ScatCTH", ScatCTH, -1, 1, 1);
-		// It depends on incident photon energy (in MeV!)
-		f2->SetParameter( 0, e_mid);
+		// Should remove this once parameters for eta prodcution are established
+		// ScatCTH distribution for Compton scattering and pi0 production
+		
+		if ( param.process != "eta") {
+			f2 = new TF1( "ScatCTH", ScatCTH, -1, 1, 1);
+			// It depends on incident photon energy (in MeV!)
+			f2->SetParameter( 0, e_mid);
+		}
+		// Completely random distribution for eta production
+		else if ( param.process == "eta") {
+			f2 = new TF1( "ScatCTH", "1", -1, 1);
+		}
 
 		// Phi distributions using beam pol and asymmetry
 		TF1 *f3 = new TF1( "PhiDist", PhiDist, -kPI, kPI, 3);
@@ -366,6 +437,7 @@ int EvGen()
 
 			// Pick CM angular distributions for scattered particle:
 			// 	Theta is from ABC fit function
+			
 			qth_cm = acos( f2->GetRandom());
 
 			// 	Phi is from a function with p_gamma and Sigma
@@ -393,7 +465,7 @@ int EvGen()
 
 				// Find the boost to pion rest frame
 				q3mom = q.Vect();
-				forpion.TLorentzVector::SetXYZT( 0, 0, q3mom.Mag(), q.E());
+				forpion.TLorentzVector::SetPxPyPzE( 0, 0, q3mom.Mag(), q.E());
 				pi0Boost = forpion.BoostVector();
 
 				// Pion decay into 2 photons
@@ -420,6 +492,46 @@ int EvGen()
 				photon2.Boost( pi0Boost);
 
 				// Rotate the angles to go from the direction of pion back to lab
+				// frame
+				photon1.RotateY( q.Theta());
+				photon1.RotateZ( q.Phi());
+				photon2.RotateY( q.Theta());
+				photon2.RotateZ( q.Phi());
+			}
+			
+			// This section is for the two decay particles from the eta
+			
+			if ( param.process == "eta") {
+				
+				// Find the boost to eta rest frame
+				q3mom = q.Vect();
+				foreta.TLorentzVector::SetPxPyPzE( 0, 0, q3mom.Mag(), q.E());
+				etaBoost = foreta.BoostVector();
+				
+				// Eta decay into 2 photons
+				gammae = qm/2;
+				
+				// Pick random theta and phi from phase space for photon 1
+				gammath = acos( -1 + 2*gRandom->Rndm());
+				gammaph = kPI*( -1 + 2*gRandom->Rndm());
+				
+				// Calculate momentum components of photon 1
+				gammax = gammae*sin( gammath)*cos( gammaph);
+				gammay = gammae*sin( gammath)*sin( gammaph);
+				gammaz = gammae*cos( gammath);
+				
+				// 4-momenta for the two photons (#2 is just in the opposite
+				// direction but with same energy in the eta rest frame)
+				gamma1.SetPxPyPzE( gammax, gammay, gammaz, gammae);
+				gamma2.SetPxPyPzE( -gammax, -gammay, -gammaz, gammae);
+				
+				// Boost photons to frame of eta
+				photon1 = gamma1;
+				photon1.Boost( etaBoost);
+				photon2 = gamma2;
+				photon2.Boost( etaBoost);
+				
+				// Rotate the angles to go from the direction of eta back to lab
 				// frame
 				photon1.RotateY( q.Theta());
 				photon1.RotateZ( q.Phi());
@@ -472,6 +584,24 @@ int EvGen()
 				var[26] = photon2.P();
 				var[27] = photon2.E();
 			}
+			
+			// Does the same thing as above but for eta process
+			if ( param.process == "eta") {
+
+				// Photon 1
+				var[18] = photon1.Px()/photon1.P();
+				var[19] = photon1.Py()/photon1.P();
+				var[20] = photon1.Pz()/photon1.P();
+				var[21] = photon1.P();
+				var[22] = photon1.E();
+
+				// Photon 2
+				var[23] = photon2.Px()/photon2.P();
+				var[24] = photon2.Py()/photon2.P();
+				var[25] = photon2.Pz()/photon2.P();
+				var[26] = photon2.P();
+				var[27] = photon2.E();
+			}
 
 			// Fill ntuple
 			h1->Fill( var);
@@ -489,6 +619,18 @@ int EvGen()
 			h17->Fill( p1.Theta()/kD2R, 1000*(p1.E()-p1.M()));
 
 			if ( param.process == "pi0") {
+
+				h10->Fill( 1000*photon1.E());
+				h11->Fill( photon1.Theta()/kD2R);
+				h12->Fill( photon1.Phi()/kD2R);
+				h13->Fill( 1000*photon2.E());
+				h14->Fill( photon2.Theta()/kD2R);
+				h15->Fill( photon2.Phi()/kD2R);
+
+			}
+			
+			// Does the same thing as above but for eta process
+			if ( param.process == "eta") {
 
 				h10->Fill( 1000*photon1.E());
 				h11->Fill( photon1.Theta()/kD2R);
