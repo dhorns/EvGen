@@ -25,7 +25,7 @@
  * 11.03.2021		DLH		Fixed ABC issue for pi0 producition from the proton.
  * 13.03.2021		DLH		Added helium-3.
  * 24.06.2021		DLH		Adding some Tree output.
- * 15.05.2023		MFEK		Adding eta production reaction.
+ * 11.05.2023		MFEK		Adding eta production reaction, fixed several minor issues.
  *
  */
 
@@ -328,15 +328,9 @@ int EvGen()
 		// Should remove this once parameters for eta prodcution are established
 		// ScatCTH distribution for Compton scattering and pi0 production
 		
-		if ( param.process != "eta") {
-			f2 = new TF1( "ScatCTH", ScatCTH, -1, 1, 1);
-			// It depends on incident photon energy (in MeV!)
-			f2->SetParameter( 0, e_mid);
-		}
-		// Completely random distribution for eta production
-		else if ( param.process == "eta") {
-			f2 = new TF1( "ScatCTH", "1", -1, 1);
-		}
+		f2 = new TF1( "ScatCTH", ScatCTH, -1, 1, 1);
+		// It depends on incident photon energy (in MeV!)
+		f2->SetParameter( 0, e_mid);		
 
 		// Phi distributions using beam pol and asymmetry
 		TF1 *f3 = new TF1( "PhiDist", PhiDist, -kPI, kPI, 3);
