@@ -87,9 +87,9 @@ MESSAGE(STATUS "Looking for ROOT... - Found version is ${ROOT_VERSION_STRING} ")
    
 # extract major, minor, and patch versions from
 # the version string given by root-config
-String(REGEX REPLACE "^([0-9]+)\\.[0-9][0-9]+\\/[0-9][0-9]+.*" "\\1" ROOT_VERSION_MAJOR "${ROOT_VERSION_STRING}")
-String(REGEX REPLACE "^[0-9]+\\.([0-9][0-9])+\\/[0-9][0-9]+.*" "\\1" ROOT_VERSION_MINOR "${ROOT_VERSION_STRING}")
-String(REGEX REPLACE "^[0-9]+\\.[0-9][0-9]+\\/([0-9][0-9]+).*" "\\1" ROOT_VERSION_PATCH "${ROOT_VERSION_STRING}")
+String(REGEX REPLACE "^([0-9]+)\\.[0-9][0-9]+\\.[0-9][0-9]+.*" "\\1" ROOT_VERSION_MAJOR "${ROOT_VERSION_STRING}")
+String(REGEX REPLACE "^[0-9]+\\.([0-9][0-9])+\\.[0-9][0-9]+.*" "\\1" ROOT_VERSION_MINOR "${ROOT_VERSION_STRING}")
+String(REGEX REPLACE "^[0-9]+\\.[0-9][0-9]+\\.([0-9][0-9]+).*" "\\1" ROOT_VERSION_PATCH "${ROOT_VERSION_STRING}")
 
 # compute overall version numbers which can be compared at once
 Math(EXPR req_vers "${ROOT_FIND_VERSION_MAJOR}*10000 + ${ROOT_FIND_VERSION_MINOR}*100 + ${ROOT_FIND_VERSION_PATCH}")
@@ -106,13 +106,12 @@ EndIf()
 
 if(NOT ROOT_FOUND)
   If(ROOT_FIND_REQUIRED)
-    Message(STATUS "Looking for ROOT... - Found version to old.")
+    Message(STATUS "Looking for ROOT... - Found version too old.")
     Message(FATAL_ERROR "Looking for ROOT... - Minimum required version is ${ROOT_FIND_VERSION}")
   EndIf(ROOT_FIND_REQUIRED)
   # not required, ignore it
   return()
 endif()
-
 
 # ask root-config for the library dir
 # Set ROOT_LIBRARY_DIR
