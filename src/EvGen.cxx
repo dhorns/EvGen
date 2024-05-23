@@ -99,6 +99,8 @@ int EvGen()
 
 	TString name, string, gnames;
 
+	// Adding a comment here for no reason
+
 	std::cout << "--------" << std::endl;
 	std::cout << "EvGen" << std::endl;
 	std::cout << "--------" << std::endl;
@@ -300,7 +302,6 @@ int EvGen()
 			h17 = new TH2F( "h17", "Recoil KE vs Theta", 36, 0, 180, 500, 0, 2500);		
 		}
 
-		
 		//
 		// New TTree stuff
 		// 
@@ -656,7 +657,6 @@ int EvGen()
 
 		// Write histograms to file
 		hfile.Write();
-		
 
 		// This isn't really necessary, but can be used for debugging.
 //		h1->Print();
