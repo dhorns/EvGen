@@ -5,8 +5,8 @@ Process: compton
 #Process: pi0
 #Process: eta
 #
-Target: p
-#Target: c
+#Target: p
+Target: c
 #Target: w
 #Target: he3
 #Target: he4
@@ -28,8 +28,8 @@ PhotAsym: 1.0
 PhiOffset: 0
 #
 #Throws: 100
-#Throws: 10000
-Throws: 100000
+Throws: 1000
+#Throws: 100000
 #Throws: 1000000
 # 
 # ENERGY

@@ -3,28 +3,30 @@
 #
 # These are pretty self-explanatory...
 #
-#Particle: g
+Particle: g
 #Particle: p
 #Particle: d
 #Particle: he3
-Particle: he4
+#Particle: he4
 #
-TargetLength: 0.1
+#TargetLength: 0.1
 #TargetLength: 2.0
-#TargetLength: 5.0
+TargetLength: 5.0
 #TargetLength: 10.0
 #
 BeamSpotRadius: 0.50
 #
-Throws: 100000
+#Throws: 100000
+Throws: 10000
 #
 # ENERGY
 #     Bite Lo Step Bins
-ParticleEnergy: 10 200 15 1
+#ParticleEnergy: 10 200 15 1
+ParticleEnergy: 2 300 15 1
 #
 # POLAR ANGLE
 #     Value Bite
-LabTheta: 90 10
+LabTheta: 0 1
 #
 # AZIMUTHAL ANGLE
 #     Value Bite
