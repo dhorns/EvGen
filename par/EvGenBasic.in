@@ -26,7 +26,8 @@ ParticleEnergy: 2 300 15 1
 #
 # POLAR ANGLE
 #     Value Bite
-LabTheta: 0 1
+#LabTheta: 0 1
+LabTheta: 0 5
 #
 # AZIMUTHAL ANGLE
 #     Value Bite
