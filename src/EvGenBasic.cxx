@@ -123,24 +123,27 @@ int EvGenBasic()
 			string = "LabTheta: ";
 			if ( name.Contains( string)) {
 				name.Remove( 0, string.Length());
-				string = name;
-				string.Remove( 0 , string.Last(' '));
-				th_bite = string.Atof();
 
 				string = name;
-				string.Remove( string.First(' '));
+				string.Remove( string.Last(' '));
 				theta = string.Atof();
+
+				string = name;
+				string.Remove( 0 , string.First(' '));
+				th_bite = string.Atof();
+
 			}
 			string = "LabPhi: ";
 			if ( name.Contains( string)) {
 				name.Remove( 0, string.Length());
-				string = name;
-				string.Remove( 0 , string.Last(' '));
-				ph_bite = string.Atof();
 
 				string = name;
-				string.Remove( string.First(' '));
+				string.Remove( string.Last(' '));
 				phi = string.Atof();
+
+				string = name;
+				string.Remove( 0 , string.First(' '));
+				ph_bite = string.Atof();
 			}
 		}
 	}
